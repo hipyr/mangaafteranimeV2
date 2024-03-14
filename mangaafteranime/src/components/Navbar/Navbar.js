@@ -44,6 +44,17 @@ export default function Navbar() {
             <div className={styles["rightside-container"]} onMouseOver={() => setuserDropdown(!userDropdown)} onMouseLeave={() => setuserDropdown(!userDropdown)}>
                 <img src="/star.png" />
                 <img src="/testimg.jpg" id={styles["userico"]} />
+                {userDropdown ?
+                    <div className={styles['recc-dropdown']} onMouseEnter={() => setIsDropDownOpen(!isDropdownOpen)} onMouseLeave={() => setIsDropDownOpen(!isDropdownOpen)}>
+                        <ul className={styles['dropdown-items']}>
+                            <li>Accounts</li>
+                            <li>Settings</li>
+                            <li>Likes</li>
+                            <li>Themes</li>
+                            <li>Subscriptions</li>
+
+                        </ul>
+                    </div> : null}
                 {userDropdown ? < RiArrowDropDownLine /> : <RiArrowDropUpLine />}
             </div>
         </div>
