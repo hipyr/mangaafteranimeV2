@@ -68,8 +68,11 @@ function Searchbar() {
                     onChange={(e) => setAnimeName(e.target.value)}
                     placeholder=" Search anime database..."
                 />
-                {/* <Search animeName={animeName} /> */}
+
             </form>
+                <div className={styles['searchresults-container']}>
+                    <Search animeName={animeName} />
+                </div>
         </div>
     ); {/* Lines 60-68 is the form submission god help me this needs reorganized LOL */ }
 }

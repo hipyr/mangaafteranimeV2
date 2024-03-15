@@ -58,15 +58,13 @@
     display: flex;
 }
 
-.category-wrapper p {
-    
-}
+.category-wrapper p {}
 
 .recc-dropdown {
     position: relative;
 }
 
-.dropdown-items {
+.dropdown-container {
     display: flex;
     flex-direction: column;
     list-style: none;
