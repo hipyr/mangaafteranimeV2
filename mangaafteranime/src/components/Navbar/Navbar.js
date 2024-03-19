@@ -4,7 +4,7 @@ import Searchbar from "../Searchbar/Searchbar";
 import styles from "./Navbar.module.scss";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { RiArrowDropUpLine } from "react-icons/ri";
-
+import { Search } from "./Navbar.module.scss";
 export default function Navbar() {
     const [isDropdownOpen, setIsDropDownOpen] = useState(false);
     const [disabled, setDisabled] = useState(true)  // when true it isn't disabled when false it is disabled
@@ -17,28 +17,27 @@ export default function Navbar() {
                     <img src="/templogo.png" />
                 </div>
                 <div className={styles["category-container"]}>
-                    <div className={styles["category-wrapper"]} onMouseOver={() => setIsDropDownOpen(!isDropdownOpen)} onMouseLeave={() => setIsDropDownOpen(!isDropdownOpen)}>
+                    <div className={styles["category-wrapper"]} onMouseEnter={() => setIsDropDownOpen(!isDropdownOpen)} onMouseLeave={() => setIsDropDownOpen(!isDropdownOpen)}>
                         <p>
                             Recommended
                         </p>
-
-                        {isDropdownOpen && disabled ?
-                            <div className={styles['recc-dropdown']} onMouseEnter={() => setIsDropDownOpen(!isDropdownOpen)} onMouseLeave={() => setIsDropDownOpen(!isDropdownOpen)}>
+                        {isDropdownOpen ?
+                            <div className={styles['recc-dropdown']}>
                                 <div className={styles['dropdown-container']}>
-                                    <div className='dropdown-items'>
+                                    <div className={styles['dropdown-items']}>
                                         <p>Action</p>
                                     </div>
                                     <div>
-                                        Adventuer
+                                        <p>Adventure</p>
                                     </div>
                                     <div>
-                                        category 4
+                                        <p>Romance</p>
                                     </div>
                                     <div>
-                                        category 5
+                                        <p>Shonen</p>
                                     </div>
                                     <div>
-                                        category 6
+                                        <p>Isekai</p>
                                     </div>
                                 </div>
                             </div>
@@ -55,12 +54,15 @@ export default function Navbar() {
             </div>
             <div className={styles["searchbar-container"]}>
                 <Searchbar />
+                
             </div>
-            <div className={styles["rightside-container"]} onMouseOver={() => setuserDropdown(!userDropdown)} onMouseLeave={() => setuserDropdown(!userDropdown)}>
+            <div className={styles["rightside-container"]}>
                 <img src="/star.png" />
+                <div className={styles['pfp-wrapper']} onMouseLeave={() => setuserDropdown(!userDropdown)} onMouseEnter={() => setuserDropdown(!userDropdown)}>
                 <img src="/testimg.jpg" id={styles["userico"]} />
+                </div>
                 {userDropdown ?
-                    <div className={styles['recc-dropdown']} onMouseEnter={() => setIsDropDownOpen(!isDropdownOpen)} onMouseLeave={() => setIsDropDownOpen(!isDropdownOpen)}>
+                    <div className={styles['account-container']} >
                         <ul className={styles['dropdown-container']}>
                             <li>Accounts</li>
                             <li>Settings</li>
