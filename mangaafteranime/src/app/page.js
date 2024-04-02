@@ -12,7 +12,7 @@ export default function Home() {
         <MainCard />
         <Carousel ranking={'bypopularity'} name={'Popular'} />
         <Carousel ranking={'all'} name={'All Animes'} />
-        <Carousel ranking={'upcoming'} name={'Upcoming Animes'} />
+
       </MantineProvider>
     </>
   );

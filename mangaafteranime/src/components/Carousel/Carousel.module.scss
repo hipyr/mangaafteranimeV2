@@ -1,5 +1,7 @@
+@use 'src/assets/colors';
+
 .popularCarousel {
-    background-color: black;
+    background-color: colors.$black;
     color: #FFFFFF;
 
 }

@@ -22,24 +22,14 @@ export default function Navbar() {
                             Recommended
                         </p>
                         {isDropdownOpen ?
-                            <div className={styles['recc-dropdown']}>
-                                <div className={styles['dropdown-container']}>
-                                    <div className={styles['dropdown-items']}>
-                                        <p>Action</p>
-                                    </div>
-                                    <div>
-                                        <p>Adventure</p>
-                                    </div>
-                                    <div>
-                                        <p>Romance</p>
-                                    </div>
-                                    <div>
-                                        <p>Shonen</p>
-                                    </div>
-                                    <div>
-                                        <p>Isekai</p>
-                                    </div>
-                                </div>
+                            <div className={styles['dropdown-container']}>
+                                <ul className={styles['dropdown-items']}>
+                                    <li>Action</li>
+                                    <li>Adventure</li>
+                                    <li>Shoenen</li>
+                                    <li>Mecha</li>
+                                    <li>Romance</li>
+                                </ul>
                             </div>
                             : null}
                         {isDropdownOpen ? < RiArrowDropDownLine /> : <RiArrowDropUpLine />}
@@ -54,12 +44,12 @@ export default function Navbar() {
             </div>
             <div className={styles["searchbar-container"]}>
                 <Searchbar />
-                
+
             </div>
             <div className={styles["rightside-container"]}>
                 <img src="/star.png" />
-                <div className={styles['pfp-wrapper']} onMouseLeave={() => setuserDropdown(!userDropdown)} onMouseEnter={() => setuserDropdown(!userDropdown)}>
-                <img src="/testimg.jpg" id={styles["userico"]} />
+                <div className={styles['pfp-wrapper']} >
+                    <button onClick={() => setuserDropdown(!userDropdown)} > <img src="/testimg.jpg" id={styles["userico"]} /></button>
                 </div>
                 {userDropdown ?
                     <div className={styles['account-container']} >
@@ -69,11 +59,10 @@ export default function Navbar() {
                             <li>Likes</li>
                             <li>Themes</li>
                             <li>Subscriptions</li>
-
                         </ul>
                     </div> : null}
                 {userDropdown ? < RiArrowDropDownLine /> : <RiArrowDropUpLine />}
             </div>
-        </div>
+        </div >
     )
 }
