@@ -10,8 +10,8 @@ export default function Home() {
       <MantineProvider withGlobalStyles withNormalizeCSS>
         <Navbar />
         <MainCard />
-        <Carousel ranking={'bypopularity'} name={'Popular'} />
-        <Carousel ranking={'all'} name={'All Animes'} />
+        <Carousel rankingtype={'bypopularity'} name={'Popular'} />
+        <Carousel rankingtype={'all'} name={'All Animes'} />
 
       </MantineProvider>
     </>

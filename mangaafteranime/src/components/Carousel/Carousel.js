@@ -5,22 +5,14 @@ import '@mantine/core/styles.css'; // Import core styles
 import '@mantine/carousel/styles.css';
 import { Carousel } from '@mantine/carousel';
 
-export default function PopularCarousel({ ranking, name }) {
+export default function PopularCarousel({ rankingtype, name }) {
   const [popularAnimes, setPopularAnimes] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const requestOptions = {
-          method: 'GET',
-          headers: {
-            'Access-Control-Allow-Headers': 'X-Requested-With',
-            'X-MAL-CLIENT-ID': 'b16380860b0a5e8b505de7e3742b85c1',
-            'Content-Type': 'application/json',
-          },
-        };
-        const response = await fetch(`https://api.myanimelist.net/v2/anime/ranking?ranking_type=${ranking}&limit=20`, requestOptions);
+        const response = await fetch(`http://localhost:3000/api/${rankingtype}`);
         const data = await response.json();
         setPopularAnimes(data.data || []);
         setError(null);
