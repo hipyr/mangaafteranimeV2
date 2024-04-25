@@ -12,7 +12,7 @@ export default function PopularCarousel({ rankingtype, name }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/${rankingtype}`);
+        const response = await fetch(`http://localhost:3000/api/rankingtype/${rankingtype}`);
         const data = await response.json();
         setPopularAnimes(data.data || []);
         setError(null);

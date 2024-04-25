@@ -10,7 +10,7 @@ function Search({ animeName }) {
         const fetchData = async () => {
             try {
                 if (animeName) {
-                    const encodedAnimeName = encodeURIComponent(animeName);
+
                     const requestOptions = {
                         method: 'GET',
                         headers: {
@@ -20,7 +20,7 @@ function Search({ animeName }) {
                         }
                     };
 
-                    const response = await fetch(`https://api.myanimelist.net/v2/anime?q=${encodedAnimeName}`, requestOptions);
+                    const response = await fetch(`http://localhost:3000/api/animeName/${animeName}`, requestOptions);
                     const data = await response.json();
                     setSearchResults(data.data || []);
                     setError(null);
@@ -41,7 +41,7 @@ function Search({ animeName }) {
             {searchResults.length === 0 && !error && <p></p>}
             {searchResults.length > 0 && searchResults.map(searchedAnime => (
                 <div key={searchedAnime.node.id}>
-
+                    <img src={searchedAnime.node.main_picture.medium} />
                     <p>{searchedAnime.node.title}</p>
                 </div>
             ))}  {/* Lines 39-44 is the printing of the Pictures and the title need to add an anchor */}
