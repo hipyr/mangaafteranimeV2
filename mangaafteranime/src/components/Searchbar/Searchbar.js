@@ -1,80 +1,59 @@
-"use client";
-import { useState, useEffect } from 'react';
+"use client"
+import {useState, useEffect} from 'react';
 import styles from './Searchbar.module.scss';
-
-function Search({ animeName }) {
+export default function Searchbar() {
     const [searchResults, setSearchResults] = useState([]);
     const [error, setError] = useState(null);
+    async function fetchData() 
+    {
+    if (!animeName) return;
+    try 
+    {
+    const response = await fetch(`http://localhost:3000/api/animeName/${animeName}`);
+    const data = await response.json();
+    setSearchResults(data.data || []);
+    } catch (error)
+    {
+        console.error("Error Occured: ", error);
+        setSearchResults([]);
+        setError("Error Fetching Data");
+    }
+    }
+    // 7-21 FetchData function
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                if (animeName) {
-
-                    const requestOptions = {
-                        method: 'GET',
-                        headers: {
-                            'Access-Control-Allow-Headers': 'X-Requested-With',
-                            'X-MAL-CLIENT-ID': 'b16380860b0a5e8b505de7e3742b85c1',
-                            'Content-Type': 'application/json'
-                        }
-                    };
-
-                    const response = await fetch(`http://localhost:3000/api/animeName/${animeName}`, requestOptions);
-                    const data = await response.json();
-                    setSearchResults(data.data || []);
-                    setError(null);
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setSearchResults([]);
-                setError('Error fetching data. Please try again later.');
-            }
-        };
-
         fetchData();
-    }, [animeName]);
+    })
+    const [animeName, setAnimeName] = useState('');
 
-    return (
-        <>
-            {error && <p>{error}</p>} {/* this is error catching so if there are no results found it prints this */}
-            {searchResults.length === 0 && !error && <p></p>}
-            {searchResults.length > 0 && searchResults.map(searchedAnime => (
-                <div key={searchedAnime.node.id}>
-                    <img src={searchedAnime.node.main_picture.medium} />
-                    <p>{searchedAnime.node.title}</p>
-                </div>
-            ))}  {/* Lines 39-44 is the printing of the Pictures and the title need to add an anchor */}
-        </>
-    );
-}
-
-function Searchbar() {
-    const [animeName, setAnimeName] = useState("");
-
-    const handleSubmit = (e) => {
+    const handleSubmit = (e) => 
+    {
         e.preventDefault();
-        // Perform search or other actions here
-        console.log(animeName);
+        console.log('Searching for:', animeName);
+        fetchData({animeName});
+        
     };
-
+    // Use Effect
     return (
         <div className={styles['searchbar-container']}>
-            <form onSubmit={handleSubmit}>
-                <input
-
-                    type="text"
-                    value={animeName}
-                    onChange={(e) => setAnimeName(e.target.value)}
-                    placeholder=" Search anime database..."
-                />
-                <div className={styles['searchresults-container']}>
-                    <Search animeName={animeName} />
-                </div>
+            <form onSubmit={handleSubmit} className={styles['form-container']}>
+            <input
+                        type="text"
+                        value={animeName}
+                        onChange={(e) => setAnimeName(e.target.value)}
+                        placeholder="Search anime database..."
+                    />
             </form>
-
+        <div>
+        {searchResults.map(anime => (
+                <div key={anime.node.id} className={styles['search-results-container']}>
+                    <img src={anime.node.main_picture.medium} alt={`Cover of ${anime.node.title}`} />
+                    <p>{anime.node.title}</p>
+                    <p>{anime.node.rating}</p>
+                </div>
+            ))}
         </div>
-    ); {/* Lines 60-68 is the form submission god help me this needs reorganized LOL */ }
+        </div>
+        
+    )
 }
-
-export default Searchbar;

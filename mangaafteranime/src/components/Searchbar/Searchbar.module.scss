@@ -11,7 +11,16 @@
 
 .searchresults-container{
     display: flex;
+    flex-direction: column;
     position: relative;
     top: 50px;
     color: black;
+}
+.searchbar-container img{
+    height: 227px;
+    width: 318px;
+}
+.form-container
+{
+    position: absolute;
 }

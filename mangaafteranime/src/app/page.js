@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar/Navbar";
 import MainCard from "@/components/MainCard/MainCard";
 import Carousel from "@/components/Carousel/Carousel";
 import { MantineProvider } from "@mantine/core";
+import Searchbar from "@/components/Searchbar/Searchbar";
 export default function Home() {
   return (
     <>
@@ -12,7 +13,6 @@ export default function Home() {
         <MainCard />
         <Carousel rankingtype={'bypopularity'} name={'Popular'} />
         <Carousel rankingtype={'all'} name={'All Animes'} />
-
       </MantineProvider>
     </>
   );

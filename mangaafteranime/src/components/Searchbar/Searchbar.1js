@@ -1,0 +1,72 @@
+"use client"
+import { useState, useEffect } from 'react';
+import styles from './Searchbar.module.scss';
+
+function Search({ animeName }) {
+    const [searchResults, setSearchResults] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        async function fetchData() {
+            if (!animeName) return;
+            
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    'X-MAL-CLIENT-ID': 'b16380860b0a5e8b505de7e3742b85c1',
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            try {
+                const response = await fetch(`http://localhost:3000/api/animeName/${animeName}`, requestOptions);
+                const data = await response.json();
+                setSearchResults(data.data || []);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setSearchResults([]);
+                setError('Error fetching data. Please try again later.');
+            }
+        }
+
+        fetchData();
+    }, [animeName]);
+
+    return (
+        <div>
+            {error && <p className={styles.error}>{error}</p>}
+            {!error && searchResults.length === 0 }
+            {searchResults.map(anime => (
+                <div key={anime.node.id} className={styles['search-results-container']}>
+                    <img src={anime.node.main_picture.medium} alt={`Cover of ${anime.node.title}`} />
+                    <p>{anime.node.title}</p>
+                </div>
+            ))}
+        </div>
+    );
+}
+
+function Searchbar() {
+    const [animeName, setAnimeName] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Searching for:', animeName);
+    };
+
+    return (
+        <div className={styles['searchbar-container']}>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={animeName}
+                    onChange={(e) => setAnimeName(e.target.value)}
+                    placeholder="Search anime database..."
+                />
+            </form>
+            <Search animeName={animeName} />
+        </div>
+    );
+}
+
+export default Searchbar;
